@@ -34,7 +34,7 @@ spec:
         volumeMounts:
         - name: varnish-data
           mountPath: /var/lib/varnish
-        - name: varnish_secret
+        - name: varnish-secret
           mountPath: /etc/varnish_secret
         - name: varnish-config
           mountPath: /etc/varnish/default.vcl
@@ -43,7 +43,7 @@ spec:
       - name: varnish-data
         persistentVolumeClaim:
           claimName: cache-pvc-stg
-      - name: varnish_secret
+      - name: varnish-secret
         secret:
           secretName: jellyfish-trainingportal-varnish-secret
       -  name: varnish-config
