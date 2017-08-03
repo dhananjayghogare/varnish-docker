@@ -1,1 +1,1 @@
-# varnish-alpine-docker
+# varnish-docker
