@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cache-varnish-svc-stg
+  namespace: cache-ns-stg
+  labels:
+    app: cache-varnish-svc-stg
+spec:
+  ports:
+  - name: varnish
+    port: 80
+    targetPort: varnish
+  selector:
+    app: cache-varnish-stg
+    env: cache-stg

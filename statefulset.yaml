@@ -1,0 +1,51 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: cache-varnish-stg
+  namespace: cache-ns-stg
+  labels:
+    app: cache-varnish-stg
+    env: cache-stg
+spec:
+  serviceName: jellyfish-trainingportal-varnish-svc-stg
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cache-varnish-stg
+        env: cache-stg
+    spec:
+      containers:
+      - name: cache-varnish-stg
+        image: "gauravsj/alpine-varnish:latest"
+        imagePullPolicy: Always
+        env:
+        - name: VARNISH_MEMORY
+          value: "512M"
+        - name: VARNISH_SECRET_FILE
+          value: "/etc/varnish_secret/secret"
+        ports:
+        - name: varnish
+          containerPort: 80
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 500m
+        volumeMounts:
+        - name: varnish-data
+          mountPath: /var/lib/varnish
+        - name: varnish-secret
+          mountPath: /etc/varnish_secret
+        - name: varnish-config
+          mountPath: /etc/varnish/default.vcl
+          subPath: default.vcl
+      volumes:
+      - name: varnish-data
+        persistentVolumeClaim:
+          claimName: cache-pvc-stg
+      - name: varnish-secret
+        secret:
+          secretName: jellyfish-trainingportal-varnish-secret
+      -  name: varnish-config
+         configMap:
+           name: jellyfish-trainingportal-varnish-config
