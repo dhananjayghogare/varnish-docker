@@ -6,6 +6,7 @@ metadata:
   labels:
     app: cache-varnish-svc-stg
 spec:
+  type: NodePort
   ports:
   - name: varnish
     port: 80

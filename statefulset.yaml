@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
       - name: cache-varnish-stg
-        image: "gauravsj/alpine-varnish:latest"
+        image: "gauravsj/ubuntu-varnish:latest"
         imagePullPolicy: Always
         env:
-        - name: VARNISH_MEMORY
+        - name: VARNISH_STORAGE_SIZE
           value: "512M"
         - name: VARNISH_SECRET_FILE
           value: "/etc/varnish_secret/secret"
@@ -37,6 +37,9 @@ spec:
         - name: varnish-secret
           mountPath: /etc/varnish_secret
         - name: varnish-config
+          mountPath: /etc/default/varnish
+          subPath: varnish
+        - name: varnish-vcl-config
           mountPath: /etc/varnish/default.vcl
           subPath: default.vcl
       volumes:
@@ -49,3 +52,6 @@ spec:
       -  name: varnish-config
          configMap:
            name: jellyfish-trainingportal-varnish-config
+      -  name: varnish-vcl-config
+         configMap:
+           name: jellyfish-trainingportal-varnish-vcl-config

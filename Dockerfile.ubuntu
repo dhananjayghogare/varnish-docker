@@ -5,11 +5,13 @@ ENV VARNISH_ADMIN_ADDRESS 127.0.0.1
 ENV VARNISH_ADMIN_PORT 6082
 ENV VARNISH_STORAGE_SIZE 256M
 ENV VARNISH_TTL 120
-ENV VARNISH_STORAGE "malloc,${VARNISH_STORAGE_SIZE}"
+ENV VARNISH_STORAGE_FILE /var/lib/varnish/$HOSTNAME/varnish_storage.bin
+#ENV VARNISH_STORAGE "malloc,${VARNISH_STORAGE_SIZE}"
 ENV VARNISH_SECRET_FILE /etc/varnish/secret
 ENV VARNISH_MIN_THREADS 50
 ENV VARNISH_MAX_THREADS  1000
 ENV VARNISH_THREADPOOL_TIMEOUT 300
+ENV  VARNISHNCSA_ENABLED 1
 EXPOSE 80 6082
 RUN apt-get update && \
     apt-get install  -y --no-install-recommends --no-install-suggests varnish && \
@@ -18,6 +20,6 @@ RUN apt-get update && \
 
 # Expose volumes to be able to use data containers
 VOLUME ["/var/lib/varnish", "/etc/varnish"]
-COPY start.sh /start.sh
+COPY start.sh.ubuntu /start.sh
 RUN chmod +x /start.sh
 CMD ["/start.sh"]
