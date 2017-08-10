@@ -48,10 +48,10 @@ spec:
           claimName: cache-pvc-stg
       - name: varnish-secret
         secret:
-          secretName: jellyfish-trainingportal-varnish-secret
+          secretName: varnish-secret
       -  name: varnish-config
          configMap:
-           name: jellyfish-trainingportal-varnish-config
+           name: varnish-config
       -  name: varnish-vcl-config
          configMap:
-           name: jellyfish-trainingportal-varnish-vcl-config
+           name: varnish-vcl-config
