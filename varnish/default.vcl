@@ -5,12 +5,12 @@ import std;
 # For SSL offloading, pass the following header in your proxy server or load balancer: 'X-Forwarded-Proto: https'
 
 backend default {
-    .host = "jellyfish-trainingportal-stg-svc.jellyfish-trainingportal-ns-stg";
+    .host = "servicename";
     .port = "80";
 }
 
 acl purge {
-    "jellyfish-trainingportal-stg-svc.jellyfish-trainingportal-ns-stg";
+    "servicename";
 }
 
 sub vcl_recv {
